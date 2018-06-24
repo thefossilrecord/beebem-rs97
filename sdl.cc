@@ -395,7 +395,7 @@ void fill_audio(void *udata, Uint8 *stream, int len)
                 return;
 
         if ( HowManyBytesLeftInSDLSoundBuffer() < (unsigned int) len) { // (REQUESTED_NUMBER_OF_SAMPLES) ) {
-                printf("not enough data have %d want %d.\n", SDLSoundBufferBytesHave, len);
+                //printf("not enough data have %d want %d.\n", SDLSoundBufferBytesHave, len);
                 buffer_sound=0;
                 return;
         }

@@ -11,6 +11,7 @@
 #include "virtualkeyboard.h"
 #include "keyboard.h"
 #include "beebwin.h"
+#include "video.h"
 #include <SDL.h>
 
 #define LOCK(s)   {if(SDL_MUSTLOCK(s))(void)SDL_LockSurface(s);}
@@ -620,6 +621,7 @@ static int LoadKeyboardImageAndSetPalette(SDL_Surface *surface_p)
 	printf("-> Setting palette.\n");
 	if (tmp2_p->format->palette != NULL) {
 		SDL_SetPalette(surface_p, SDL_LOGPAL|SDL_PHYSPAL, tmp2_p->format->palette->colors, 0, tmp2_p->format->palette->ncolors);
+		update_rgb_lookup(surface_p);
 	} else {
 		printf("Virtual keyboard graphics are not 8bit."
 		 " Please resave as an 8bit bmp.\n");

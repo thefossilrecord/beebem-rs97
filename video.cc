@@ -314,29 +314,41 @@ void VideoAddLEDs(void);
 //--	}
 //--}
 //<+
+#define MAX_PALETTE_COLOURS 256
+unsigned short rgb_lookup[MAX_PALETTE_COLOURS] = {0};
+
+void update_rgb_lookup(SDL_Surface *source_surface)
+	{
+	SDL_Color *colours = source_surface->format->palette->colors;
+
+	for(int index = 0; index < MAX_PALETTE_COLOURS; index++)
+		rgb_lookup[index] = SDL_MapRGB(rgb_surface->format, colours[index].r, colours[index].g, colours[index].b);
+
+	}
 
 void rgb_blit()
 	{
 	LOCK(rgb_surface);
 
 	unsigned char *src_pixel = (unsigned char *)frame_buffer_p->pixels;
-	unsigned short *dest_pixel = (unsigned short *)rgb_surface->pixels, *prev_line = dest_pixel;
-	SDL_Color *colours = frame_buffer_p->format->palette->colors;
+	unsigned short *dest_pixel = (unsigned short *)rgb_surface->pixels;//, *prev_line = dest_pixel;
+	unsigned short *dest_pixel2 = dest_pixel + 320;
 		
 	for(int yc = 0; yc < 240; yc++)
 		{
 		for(int xc = 0; xc < 320; xc++)
 			{
-			*dest_pixel = SDL_MapRGB(rgb_surface->format, colours[*src_pixel].r, colours[*src_pixel].g, colours[*src_pixel].b);
-
+			*dest_pixel = rgb_lookup[*src_pixel];//SDL_MapRGB(rgb_surface->format, colours[*src_pixel].r, colours[*src_pixel].g, colours[*src_pixel].b);
+			*dest_pixel2 = rgb_lookup[*src_pixel];
 			src_pixel++;
 			dest_pixel++;
-
+			dest_pixel2++;
 			}
 
-		memcpy(dest_pixel, prev_line, 320 * sizeof(unsigned short));
+		//memcpy(dest_pixel, prev_line, 320 * sizeof(unsigned short));
 		dest_pixel = dest_pixel + 320;
-		prev_line = dest_pixel;
+		dest_pixel2 = dest_pixel2 + 320;
+		//prev_line = dest_pixel;
 		}
 
 	UNLOCK(rgb_surface);

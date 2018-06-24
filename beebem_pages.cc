@@ -402,6 +402,7 @@ EG_BOOL BeebEmPages_Create(SDL_Surface *frame_buffer_p)
 	SDL_Surface *tmp2_p = SDL_LoadBMP(config.files.virtual_keyboard_loc);
 	if (tmp2_p != NULL) {
 	SDL_SetPalette(frame_buffer_p, SDL_LOGPAL|SDL_PHYSPAL, tmp2_p->format->palette->colors, 0, tmp2_p->format->palette->ncolors);
+	update_rgb_lookup(frame_buffer_p);
 	SDL_FreeSurface(tmp2_p);
 	}
 

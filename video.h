@@ -100,5 +100,6 @@ void Video_SetVHoldNormal(void);
 void Video_SetVHoldDown(void);
 
 void rgb_blit();
+void update_rgb_lookup(SDL_Surface *source_surface);
 
 #endif
