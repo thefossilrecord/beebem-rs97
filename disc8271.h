@@ -27,6 +27,8 @@
 #	include <config.h>
 #endif
 
+#include <unistd.h>
+
 extern int Disc8271Trigger; /* Cycle based time Disc8271Trigger */
 
 void LoadSimpleDSDiscImage(char *FileName, int DriveNum,int Tracks);

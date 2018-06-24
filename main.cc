@@ -263,7 +263,8 @@ void at_exit(void)
 	StickManager_Quit();
 
 	SDL_FillRect(frame_buffer_p, NULL, 0);
-	SDL_UpdateRect(frame_buffer_p, 0,0,0,0);
+	//SDL_UpdateRect(frame_buffer_p, 0,0,0,0);
+	rgb_blit();
 
 	FileSelector_Quit();
 
@@ -475,7 +476,7 @@ int main(int argc,char *argv[]) {
 //						break;
 //					}
 
-					if (event.key.keysym.sym == SDLK_F1) {
+					if (event.key.keysym.sym == SDLK_BACKSPACE) {
 						if (mainWin->OnScreenKeyboardShown()) {
 							mainWin->HideOnScreenKeyboard();
 							cls();
@@ -488,6 +489,57 @@ int main(int argc,char *argv[]) {
 						break;
 					}
 
+					if (event.key.keysym.sym == SDLK_UP)
+						{
+						keysym = gp2xButtonToSDLK(GP2X_BUTTON_UP);
+						HandleButtonPressForKeysym(event.type == SDL_KEYDOWN, keysym);
+						}
+					if (event.key.keysym.sym == SDLK_DOWN)
+						{
+						keysym = gp2xButtonToSDLK(GP2X_BUTTON_DOWN);
+						HandleButtonPressForKeysym(event.type == SDL_KEYDOWN, keysym);
+						}
+					if (event.key.keysym.sym == SDLK_LEFT)
+						{
+						keysym = gp2xButtonToSDLK(GP2X_BUTTON_LEFT);
+						HandleButtonPressForKeysym(event.type == SDL_KEYDOWN, keysym);
+						}
+					if (event.key.keysym.sym == SDLK_RIGHT)
+						{
+						keysym = gp2xButtonToSDLK(GP2X_BUTTON_RIGHT);
+						HandleButtonPressForKeysym(event.type == SDL_KEYDOWN, keysym);
+						}	
+					if (event.key.keysym.sym == SDLK_LCTRL)
+						{
+						keysym = gp2xButtonToSDLK(GP2X_BUTTON_A);
+						HandleButtonPressForKeysym(event.type == SDL_KEYDOWN, keysym);
+						}
+					if (event.key.keysym.sym == SDLK_LALT)
+						{
+						keysym = gp2xButtonToSDLK(GP2X_BUTTON_B);
+						HandleButtonPressForKeysym(event.type == SDL_KEYDOWN, keysym);
+						}
+					if (event.key.keysym.sym == SDLK_SPACE)
+						{
+						keysym = gp2xButtonToSDLK(GP2X_BUTTON_X);
+						HandleButtonPressForKeysym(event.type == SDL_KEYDOWN, keysym);
+						}
+					if (event.key.keysym.sym == SDLK_LSHIFT)
+						{
+						keysym = gp2xButtonToSDLK(GP2X_BUTTON_Y);
+						HandleButtonPressForKeysym(event.type == SDL_KEYDOWN, keysym);
+						}
+					if (event.key.keysym.sym == SDLK_RETURN)
+						{
+						keysym = gp2xButtonToSDLK(GP2X_BUTTON_START);
+						HandleButtonPressForKeysym(event.type == SDL_KEYDOWN, keysym);
+						}
+					if (event.key.keysym.sym == SDLK_ESCAPE)
+						{
+						keysym = gp2xButtonToSDLK(GP2X_BUTTON_SELECT);
+						HandleButtonPressForKeysym(event.type == SDL_KEYDOWN, keysym);
+						}										
+/*
 					if (event.key.keysym.sym == SDLK_F2) {
 						if (mainWin->ScreenIsReversed()) {
 							mainWin->NormaliseScreenOrientation();
@@ -508,8 +560,8 @@ int main(int argc,char *argv[]) {
 						}
 						break;
 					}
-
-					if (event.key.keysym.sym == SDLK_F3) {
+*/
+					if (event.key.keysym.sym == SDLK_TAB) {
 						mainWin->ShiftBooted = false;
 						BeebKeyUp(0, 0);
 
@@ -545,6 +597,59 @@ int main(int argc,char *argv[]) {
 					break;
 
 				case SDL_KEYUP:
+					
+					if (event.key.keysym.sym == SDLK_UP)
+						{
+						keysym = gp2xButtonToSDLK(GP2X_BUTTON_UP);
+						HandleButtonPressForKeysym(event.type == SDL_KEYDOWN, keysym);
+						}
+					if (event.key.keysym.sym == SDLK_DOWN)
+						{
+						keysym = gp2xButtonToSDLK(GP2X_BUTTON_DOWN);
+						HandleButtonPressForKeysym(event.type == SDL_KEYDOWN, keysym);
+						}
+					if (event.key.keysym.sym == SDLK_LEFT)
+						{
+						keysym = gp2xButtonToSDLK(GP2X_BUTTON_LEFT);
+						HandleButtonPressForKeysym(event.type == SDL_KEYDOWN, keysym);
+						}
+					if (event.key.keysym.sym == SDLK_RIGHT)
+						{
+						keysym = gp2xButtonToSDLK(GP2X_BUTTON_RIGHT);
+						HandleButtonPressForKeysym(event.type == SDL_KEYDOWN, keysym);
+						}	
+					if (event.key.keysym.sym == SDLK_LCTRL)
+						{
+						keysym = gp2xButtonToSDLK(GP2X_BUTTON_A);
+						HandleButtonPressForKeysym(event.type == SDL_KEYDOWN, keysym);
+						}
+					if (event.key.keysym.sym == SDLK_LALT)
+						{
+						keysym = gp2xButtonToSDLK(GP2X_BUTTON_B);
+						HandleButtonPressForKeysym(event.type == SDL_KEYDOWN, keysym);
+						}
+					if (event.key.keysym.sym == SDLK_SPACE)
+						{
+						keysym = gp2xButtonToSDLK(GP2X_BUTTON_X);
+						HandleButtonPressForKeysym(event.type == SDL_KEYDOWN, keysym);
+						}
+					if (event.key.keysym.sym == SDLK_LSHIFT)
+						{
+						keysym = gp2xButtonToSDLK(GP2X_BUTTON_Y);
+						HandleButtonPressForKeysym(event.type == SDL_KEYDOWN, keysym);
+						}
+					if (event.key.keysym.sym == SDLK_RETURN)
+						{
+						keysym = gp2xButtonToSDLK(GP2X_BUTTON_START);
+						HandleButtonPressForKeysym(event.type == SDL_KEYDOWN, keysym);
+						}
+					if (event.key.keysym.sym == SDLK_ESCAPE)
+						{
+						keysym = gp2xButtonToSDLK(GP2X_BUTTON_SELECT);
+						HandleButtonPressForKeysym(event.type == SDL_KEYDOWN, keysym);
+						}													
+				
+				
 					if (! mainWin->OnScreenKeyboardShown()) {
 						if ( ConvertSDLKeyToBBCKey(event.key.keysym.sym, &beeb_key_column, &beeb_key_row) )
 							BeebKeyUp(beeb_key_row, beeb_key_column);

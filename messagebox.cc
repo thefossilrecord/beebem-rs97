@@ -13,6 +13,8 @@
 #include "messagebox_private.h"
 #include "button.h"
 
+#include "video.h"
+
 #include <gui/gui.h>
 #include <gui/functions.h>
 
@@ -561,7 +563,8 @@ int EG_MessageBox(SDL_Surface *surface_ptr, int type, const char *title_ptr
                 SDL_Delay(40);  // 25fps
                 Button_RaiseAutoRepeatEvents();
 //                SDL_UpdateRect(frame_buffer_p, 0,0,0,0);
-		SDL_UpdateRect(surface_ptr, 0,0,0,0);
+		//SDL_UpdateRect(surface_ptr, 0,0,0,0);
+		rgb_blit();
 
                 /* Make sure EG house keeping is triggered every 40ms:
                  */

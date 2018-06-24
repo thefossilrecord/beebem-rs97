@@ -560,7 +560,8 @@ static void ProcessEvents()
 		 */
 		SDL_Delay(40);	// 25fps
 		Button_RaiseAutoRepeatEvents();
-		SDL_UpdateRect(frame_buffer_p, 0,0,0,0);
+		//SDL_UpdateRect(frame_buffer_p, 0,0,0,0);
+		rgb_blit();
 
 		/* Make sure EG house keeping is triggered every 40ms:
 		 */
@@ -608,7 +609,8 @@ void BeebEmPages_ShowMenu(void)
 
 	SDL_Color c= MENU_COLORS;
 	SDL_FillRect(surface_p, NULL, SDL_MapRGB(surface_p->format, c.r, c.g, c.b));	
-	SDL_UpdateRect(surface_p, 0,0,0,0);
+	//SDL_UpdateRect(surface_p, 0,0,0,0);
+	rgb_blit();
 
 //	BackupPalette(surface_p, frame_buffer_colors);
 
@@ -776,7 +778,8 @@ static void Menu_Callback_LoadState(EG_Widget*, void* /* user_p */)
 			
 			//gui_p->menu.win
 			SDL_FillRect(frame_buffer_p, NULL, 0);
-			SDL_UpdateRect(frame_buffer_p, 0,0,0,0);
+			//SDL_UpdateRect(frame_buffer_p, 0,0,0,0);
+			rgb_blit();
 
 	                LoadUEFState( (char*) filename);
 
@@ -802,7 +805,8 @@ static void Menu_Callback_RunDisc(EG_Widget*, void*)
 		ChangeMenuTo(NULL);
 
 		SDL_FillRect(frame_buffer_p, NULL, 0);
-		SDL_UpdateRect(frame_buffer_p, 0,0,0,0);
+		//SDL_UpdateRect(frame_buffer_p, 0,0,0,0);
+		rgb_blit();
 
 		if (mainWin!=NULL) mainWin->Reset();
 		Config_LoadDiscConfig(filename);
@@ -1452,7 +1456,8 @@ static void GameOptions1_Callback_Flip(EG_Widget*, void* user_p)
 
 	EG_Window_Hide(gui_p->game_options_1.win);
         SDL_FillRect(frame_buffer_p, NULL, 0);
-        SDL_UpdateRect(frame_buffer_p, 0,0,0,0);
+        //SDL_UpdateRect(frame_buffer_p, 0,0,0,0);
+	rgb_blit();
 	EG_Window_Show(gui_p->game_options_1.win);
 }
 

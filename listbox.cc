@@ -23,6 +23,8 @@
 #include "keyboard.h"
 #include "progressdialog.h"
 
+#include "video.h"
+
 static int d;
 static int return_value;
 
@@ -753,7 +755,8 @@ int ListBox_Run(ListBox *listbox_p)
 		 */
                 SDL_Delay(40);  // 25fps
                 Button_RaiseAutoRepeatEvents();
-                SDL_UpdateRect(frame_buffer_p, 0,0,0,0);
+                //SDL_UpdateRect(frame_buffer_p, 0,0,0,0);
+		rgb_blit();
                 SDL_UpdateRect(listbox_p->surface_p, 0,0,0,0);
 
                 /* Make sure EG house keeping is triggered every 40ms:

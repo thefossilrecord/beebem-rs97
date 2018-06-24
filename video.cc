@@ -92,6 +92,7 @@
 /* Handle SDL surface locking:
  */
 extern SDL_Surface *frame_buffer_p;
+extern SDL_Surface *rgb_surface;
 #define LOCK(s)   {if(SDL_MUSTLOCK(s))(void)SDL_LockSurface(s);}
 #define UNLOCK(s) {if(SDL_MUSTLOCK(s))(void)SDL_UnlockSurface(s);}
 //<----
@@ -314,6 +315,34 @@ void VideoAddLEDs(void);
 //--}
 //<+
 
+void rgb_blit()
+	{
+	LOCK(rgb_surface);
+
+	unsigned char *src_pixel = (unsigned char *)frame_buffer_p->pixels;
+	unsigned short *dest_pixel = (unsigned short *)rgb_surface->pixels, *prev_line = dest_pixel;
+	SDL_Color *colours = frame_buffer_p->format->palette->colors;
+		
+	for(int yc = 0; yc < 240; yc++)
+		{
+		for(int xc = 0; xc < 320; xc++)
+			{
+			*dest_pixel = SDL_MapRGB(rgb_surface->format, colours[*src_pixel].r, colours[*src_pixel].g, colours[*src_pixel].b);
+
+			src_pixel++;
+			dest_pixel++;
+
+			}
+
+		memcpy(dest_pixel, prev_line, 320 * sizeof(unsigned short));
+		dest_pixel = dest_pixel + 320;
+		prev_line = dest_pixel;
+		}
+
+	UNLOCK(rgb_surface);
+
+	SDL_UpdateRect (rgb_surface, 0, 0, 0, 0);
+	}
 
 // A 'Chunky Mode' get pixel routine:
 static inline int GetPixel_8(SDL_Surface *surface_p, int x, int y)
@@ -347,24 +376,24 @@ static void BuldMode7Font_8x9(void) {
 			m7cr=0;
 			for(m7cx=0; m7cx<8; m7cx++) {
 				if ( (p=GetPixel_8(f_p, m7cx, m7cy+(9*m7cc) /* *(m7cc*9) */))==1) {
-					printf("*");
+					//printf("*");
 					if (SDL_BYTEORDER == SDL_LIL_ENDIAN)
 						m7cr|=(1<<(8-m7cx));
 					else
 						m7cr|=(1<<(m7cx));
-				} else {
-					printf("_");
-				}
+				}// else {
+				//	printf("_");
+				//}
 			}
 
-			printf("\t%X\n", m7cr);
+			//printf("\t%X\n", m7cr);
 
 			EM7Font[0][m7cc][m7cy]=m7cr;
 			EM7Font[1][m7cc][m7cy]=m7cr;
 			EM7Font[2][m7cc][m7cy]=m7cr;
 		}
 		
-		printf("\n");
+		//printf("\n");
 	}
 
 
@@ -2804,8 +2833,8 @@ void VideoDoScanLine(void) {
 
 
 	if (VideoState.CharLine>=CRTC_VerticalTotal)
-		SDL_UpdateRect(frame_buffer_p, 0, 0, 320, 240);
-
+		//SDL_UpdateRect(frame_buffer_p, 0, 0, 320, 240);
+		rgb_blit();
 
 
 	
@@ -2918,7 +2947,8 @@ void VideoDoScanLine(void) {
 
     if (VideoState.CharLine>CRTC_VerticalTotal) {
 
-	SDL_UpdateRect(frame_buffer_p, 0, 0, 320, 240);
+	//SDL_UpdateRect(frame_buffer_p, 0, 0, 320, 240);
+	rgb_blit();
 
       VScreenAdjust=0;
       if (!FrameNum) {

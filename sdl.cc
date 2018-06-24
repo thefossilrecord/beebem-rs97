@@ -44,6 +44,7 @@ static void GP2x_InitializeSoundBuffer(void);
 /* Frame buffer:
  */
 SDL_Surface *frame_buffer_p=NULL;
+SDL_Surface *rgb_surface=NULL;
 
 /* Sound support:
  */
@@ -330,8 +331,8 @@ int GetBytesFromSDLSoundBuffer(int len)
 
  //               if (SDLSoundBufferBytesHave > REQUESTED_NUMBER_OF_SAMPLES * 5){
 		if (SDLSoundBufferBytesHave > REQUESTED_NUMBER_OF_SAMPLES * 4){
-                        fprintf(stderr, "Dumping %d sound samples, catched up %u times so far..\n"
-                         , SDLSoundBufferBytesHave - ( REQUESTED_NUMBER_OF_SAMPLES * 3), ++uiCatchedUpTimes);
+                        //fprintf(stderr, "Dumping %d sound samples, catched up %u times so far..\n"
+                        // , SDLSoundBufferBytesHave - ( REQUESTED_NUMBER_OF_SAMPLES * 3), ++uiCatchedUpTimes);
                         CatchupSound();
                 }
 
@@ -445,7 +446,7 @@ int InitializeSDL(int,char*[])
         flags = SDL_HWSURFACE | SDL_HWPALETTE;
 #ifndef GP2X
         //if ( (frame_buffer_p=SDL_SetVideoMode(640, 480, 8, flags)) == NULL ) {
-        if ( (frame_buffer_p=SDL_SetVideoMode(320, 240, 8, flags)) == NULL ) {
+        if ( (rgb_surface=SDL_SetVideoMode(320, 480, 16, flags)) == NULL ) {
 #else
         if ( (frame_buffer_p=SDL_SetVideoMode(320, 240, 8, flags)) == NULL ) {
 #endif
@@ -453,6 +454,16 @@ int InitializeSDL(int,char*[])
                  , SDL_GetError());
                 return 0;
         }
+	
+	frame_buffer_p = SDL_CreateRGBSurface(SDL_SWSURFACE,
+         320, 240, 8, 0, 0, 0, 0);
+	if (frame_buffer_p == NULL)
+	{
+                fprintf(stderr, "Unable to create surface: %s\n"
+                 , SDL_GetError());
+                return 0;
+	}		
+	
 #ifdef GP2X
         SDL_ShowCursor(SDL_DISABLE);
 #endif

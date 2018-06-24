@@ -234,10 +234,10 @@ inline static void PutPixel(SDL_Surface *surface_p, int x, int y, Uint8 pixel)
 
         /* Do nothing if surface isn't 8 bit:
          */
-        if (surface_p->format->BytesPerPixel != 1) {
-                fprintf(stderr, "SDL Surface is not 8 bit, can't draw.\n");
-                return;
-        }
+//        if (surface_p->format->BytesPerPixel != 1) {
+ //               fprintf(stderr, "SDL Surface is not 8 bit, can't draw.\n");
+   //             return;
+ //       }
 
         /* Draw the pixel:
          */

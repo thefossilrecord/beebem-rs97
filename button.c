@@ -182,7 +182,7 @@ void Button_TranslateEvent(SDL_Event *event_p, int is_flipped)
 		} else
 
 		// CLICK:
-		if ( event_p->key.keysym.sym == SDLK_RETURN) {
+		if ( event_p->key.keysym.sym == SDLK_LALT) {
 			ButtonDown_NoRepeat(BUTTON_KEY_CLICK);
 			RaiseButtonEvent(SDL_USEREVENT_BUTTON_CLICK_DOWN);
 		}
@@ -218,7 +218,7 @@ void Button_TranslateEvent(SDL_Event *event_p, int is_flipped)
 		} else
 
 		// CLICK:
-		if ( event_p->key.keysym.sym == SDLK_RETURN) {
+		if ( event_p->key.keysym.sym == SDLK_LALT) {
 //			printf("***** CLICK\n");
 			ButtonUp(BUTTON_KEY_CLICK);
 			RaiseButtonEvent(SDL_USEREVENT_BUTTON_CLICK_UP);

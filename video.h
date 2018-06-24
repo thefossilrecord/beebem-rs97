@@ -99,4 +99,6 @@ void SetVHoldOffset(unsigned int vhold);
 void Video_SetVHoldNormal(void);
 void Video_SetVHoldDown(void);
 
+void rgb_blit();
+
 #endif

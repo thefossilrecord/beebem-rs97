@@ -232,6 +232,7 @@ static void Initialize_Files(const char *executable_name_p)
 	/* Change path for development on GP2x (I copy the executable to
 	 * the /tmp RAM disk to save on NAND writes, so cwd will be wrong.
 	 */
+/*
 #ifdef GP2X
 #	ifndef PRODUCTION
 		strcpy(cwd, "/mnt/sd/beebem06");
@@ -241,7 +242,7 @@ static void Initialize_Files(const char *executable_name_p)
 		strcpy(cwd, "..");
 #	endif
 #endif
-
+*/
 
 	/* Root dir:
 	 */

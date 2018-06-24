@@ -28,32 +28,32 @@ int gp2x_mapping[BUTTON_COUNT][2] =
          {GP2X_BUTTON_UP, SDLK_QUOTE},
          {GP2X_BUTTON_DOWN,SDLK_SLASH},
 
-         {GP2X_R_BUTTON_LEFT, SDLK_z},
-         {GP2X_R_BUTTON_RIGHT,SDLK_x},
-         {GP2X_R_BUTTON_UP, SDLK_QUOTE},
-         {GP2X_R_BUTTON_DOWN,SDLK_SLASH},
+         {0,0},
+         {0,0},
+         {0,0},
+         {0,0},
 
          {GP2X_BUTTON_A,SDLK_SPACE},
          {GP2X_BUTTON_B,SDLK_RETURN},
          {GP2X_BUTTON_X,SDLK_n},
          {GP2X_BUTTON_Y,SDLK_y},
          {GP2X_BUTTON_SELECT, SDLK_F10},
-	 {GP2X_BUTTON_CLICK, SDLK_1},
-	 {GP2X_BUTTON_L, SDLK_2},
-	 {GP2X_BUTTON_R, SDLK_3},
-	 {GP2X_BUTTON_VOLUP, KEY_USEASVOLUME},
-	 {GP2X_BUTTON_VOLDOWN, KEY_USEASVOLUME},
+	 {GP2X_BUTTON_START, SDLK_1},
+	 {0,0},
+	 {0,0},
+	 {0,0},
+	 {0,0},
 
-         {GP2X_R_BUTTON_A,SDLK_SPACE},
-         {GP2X_R_BUTTON_B,SDLK_RETURN},
-         {GP2X_R_BUTTON_X,SDLK_n},
-         {GP2X_R_BUTTON_Y,SDLK_y},
-         {GP2X_R_BUTTON_SELECT, SDLK_F10},
-	 {GP2X_R_BUTTON_CLICK, SDLK_1},
-	 {GP2X_R_BUTTON_L, SDLK_2},
-	 {GP2X_R_BUTTON_R, SDLK_3},
-	 {GP2X_R_BUTTON_VOLUP, KEY_USEASVOLUME},
-	 {GP2X_R_BUTTON_VOLDOWN, KEY_USEASVOLUME}
+	 {0,0},
+	 {0,0},
+	 {0,0},
+	 {0,0},
+	 {0,0},
+	 {0,0},
+	 {0,0},
+	 {0,0},
+	 {0,0},
+	 {0,0}
 };
 
 static struct BeebKeyTrans SDLtoBeebEmKeymap[]={
@@ -326,7 +326,7 @@ int buttonnameToGP2XButton(char* name)
         if (!strcasecmp (name, "X")) return GP2X_BUTTON_X;
         if (!strcasecmp (name, "Y")) return GP2X_BUTTON_Y;
         if (!strcasecmp (name, "SELECT")) return GP2X_BUTTON_SELECT;
-	if (!strcasecmp (name, "CLICK")) return GP2X_BUTTON_CLICK;
+	if (!strcasecmp (name, "CLICK")) return GP2X_BUTTON_START;
 	if (!strcasecmp (name, "L")) return GP2X_BUTTON_L;
 	if (!strcasecmp (name, "R")) return GP2X_BUTTON_R;
 	if (!strcasecmp (name, "VOLUP")) return GP2X_BUTTON_VOLUP;
