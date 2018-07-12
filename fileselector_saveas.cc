@@ -491,7 +491,8 @@ const char* FileSelector_SaveAs_Show(SDL_Surface *frame_buffer_p, const char* de
 		 */
 		SDL_Delay(40);	// 25fps
 		Button_RaiseAutoRepeatEvents();
-		SDL_UpdateRect(frame_buffer_p, 0,0,0,0);
+		//SDL_UpdateRect(frame_buffer_p, 0,0,0,0);
+		rgb_blit();
 
 		/* Make sure EG house keeping is triggered every 40ms:
 		 */

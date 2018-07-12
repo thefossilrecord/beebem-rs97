@@ -17,6 +17,12 @@
 
 #include "beebconfig.h"
 #include "beebconfig_data.h"
+#include "video.h"
+
+#ifdef USE_DMA
+#include "dma.h"
+#endif
+
 
 #ifdef GP2X
 /* GP2x MMSP2 registers:
@@ -70,8 +76,8 @@ unsigned long SDLSoundBufferBytesHave;
 //#define REQUESTED_NUMBER_OF_SAMPLES 128
 
 #ifndef GP2x
-//#	define REQUESTED_NUMBER_OF_SAMPLES 1024
-#	define REQUESTED_NUMBER_OF_SAMPLES 512
+#	define REQUESTED_NUMBER_OF_SAMPLES 1024
+//#	define REQUESTED_NUMBER_OF_SAMPLES 512
 //#	define REQUESTED_NUMBER_OF_SAMPLES 256
 #else
 #	define REQUESTED_NUMBER_OF_SAMPLES 512
@@ -166,7 +172,7 @@ void AddBytesToSDLSoundBuffer(void *p, int len)
         SDLSoundBufferBytesHave+=len;
 
         if (SDLSoundBufferBytesHave > SOUND_BUFFER_SIZE) {
-                printf("*** SOUND BUFFER OVERRUN ***\n");
+                //printf("*** SOUND BUFFER OVERRUN ***\n");
 
                 if (SDLSoundBufferOffset_IN >= REQUESTED_NUMBER_OF_SAMPLES*10)
                         SDLSoundBufferOffset_OUT = SDLSoundBufferOffset_IN - REQUESTED_NUMBER_OF_SAMPLES*10;
@@ -179,7 +185,7 @@ void AddBytesToSDLSoundBuffer(void *p, int len)
         // Only start sound once we have enough samples buffered.
 //        if (SDLSoundBufferBytesHave >= (REQUESTED_NUMBER_OF_SAMPLES*3) && buffer_sound == 0) {
 	if (SDLSoundBufferBytesHave >= (REQUESTED_NUMBER_OF_SAMPLES*2) && buffer_sound == 0) {
-                printf("Now have %d, starting sound\n", SDLSoundBufferBytesHave);
+                //printf("Now have %d, starting sound\n", SDLSoundBufferBytesHave);
                  SDL_PauseAudio(0);
                 buffer_sound=1;
         }
@@ -497,7 +503,10 @@ int InitializeSDL(int,char*[])
 	}
 #endif
 
-
+#ifdef USE_DMA
+	if(!init_dma())
+		return 0;
+#endif
 
 	/* Successful:
 	 */	

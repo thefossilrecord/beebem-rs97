@@ -229,6 +229,10 @@ DONE	Add basic skinning support to GUI.
 
 #include "via.h"
 
+#ifdef USE_DMA
+#include "dma.h"
+#endif
+
 
 extern VIAState SysVIAState;
 
@@ -278,6 +282,10 @@ void at_exit(void)
 
 	EG_Quit();
 	SDL_Quit();
+
+#ifdef USE_DMA
+	close_dma();
+#endif
 
 #ifdef GP2X
 	OSS_Mixer_Quit();
@@ -590,7 +598,7 @@ int main(int argc,char *argv[]) {
 						}
 
 						if ( ConvertSDLKeyToBBCKey( event.key.keysym.sym, &beeb_key_column, &beeb_key_row) ) {
-							BeebKeyDown(beeb_key_row, beeb_key_column);
+							//BeebKeyDown(beeb_key_row, beeb_key_column);
 						} else if (beeb_key_row == -2) {
 							/* Handle reset */
 							Init6502core();
@@ -652,8 +660,8 @@ int main(int argc,char *argv[]) {
 							keysym = gp2xButtonToSDLK(GP2X_BUTTON_SELECT);
 							HandleButtonPressForKeysym(event.type == SDL_KEYDOWN, keysym);
 							}
-						if ( ConvertSDLKeyToBBCKey(event.key.keysym.sym, &beeb_key_column, &beeb_key_row) )
-							BeebKeyUp(beeb_key_row, beeb_key_column);
+//						if ( ConvertSDLKeyToBBCKey(event.key.keysym.sym, &beeb_key_column, &beeb_key_row) )
+//							BeebKeyUp(beeb_key_row, beeb_key_column);
 					}
 
 					break;

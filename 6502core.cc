@@ -1367,7 +1367,7 @@ void Exec6502Instruction(void) {
 
 }
 
-
+/*
 #ifndef PRODUCTION
 	unsigned int current_time = SDL_GetTicks()>>10;
 	if (current_time != previous_time) {
@@ -1380,7 +1380,7 @@ void Exec6502Instruction(void) {
 		time_slept=0;
 	}
 #endif
-
+*/
 } /* Exec6502Instruction */
 
 

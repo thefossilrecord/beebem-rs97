@@ -71,6 +71,10 @@
 #include "sysvia.h"
 #include "video.h"
 
+#ifdef USE_DMA
+#include "dma.h"
+#endif
+
 #include "beebconfig.h"
 #include "beebconfig_data.h"
 
@@ -328,32 +332,34 @@ void update_rgb_lookup(SDL_Surface *source_surface)
 
 void rgb_blit()
 	{
-	LOCK(rgb_surface);
-
 	unsigned char *src_pixel = (unsigned char *)frame_buffer_p->pixels;
+
+#ifndef USE_DMA
+	LOCK(rgb_surface);
 	unsigned short *dest_pixel = (unsigned short *)rgb_surface->pixels;//, *prev_line = dest_pixel;
+#else
+	unsigned short *dest_pixel = (unsigned short *)dma_ptr;
+#endif
 	unsigned short *dest_pixel2 = dest_pixel + 320;
 		
 	for(int yc = 0; yc < 240; yc++)
 		{
 		for(int xc = 0; xc < 320; xc++)
 			{
-			*dest_pixel = rgb_lookup[*src_pixel];//SDL_MapRGB(rgb_surface->format, colours[*src_pixel].r, colours[*src_pixel].g, colours[*src_pixel].b);
-			*dest_pixel2 = rgb_lookup[*src_pixel];
+			*dest_pixel2 = *dest_pixel = rgb_lookup[*src_pixel];
 			src_pixel++;
 			dest_pixel++;
 			dest_pixel2++;
 			}
 
-		//memcpy(dest_pixel, prev_line, 320 * sizeof(unsigned short));
 		dest_pixel = dest_pixel + 320;
 		dest_pixel2 = dest_pixel2 + 320;
-		//prev_line = dest_pixel;
 		}
 
+#ifndef USE_DMA
 	UNLOCK(rgb_surface);
-
 	SDL_UpdateRect (rgb_surface, 0, 0, 0, 0);
+#endif
 	}
 
 // A 'Chunky Mode' get pixel routine:

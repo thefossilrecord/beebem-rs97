@@ -37,13 +37,13 @@ SRCS =  6502core.cc beebmem.cc beebwin.cc disc8271.cc main.cc mode7font.c\
         sysvia.cc uservia.cc via.cc video.cc beebsound.cc atodconv.cc sdl.cc \
         keyboard.cc beebconfig.cc beebem_pages.cc screensaver.c stick.cc \
         virtualkeyboard.cc button.c fileselector.cc progressdialog.cc \
-        keyboardmapper.cc messagebox.cc uefstate.cc listbox.cc fileselector_saveas.cc
+        keyboardmapper.cc messagebox.cc uefstate.cc listbox.cc fileselector_saveas.cc dma.cc
 
 OBJS =  6502core.o beebmem.o beebwin.o disc8271.o main.o  mode7font.o\
         sysvia.o uservia.o via.o video.o beebsound.o atodconv.o sdl.o \
         keyboard.o beebconfig.o beebem_pages.o screensaver.o stick.o \
         virtualkeyboard.o button.o fileselector.o progressdialog.o \
-        keyboardmapper.o messagebox.o uefstate.o listbox.o fileselector_saveas.o
+        keyboardmapper.o messagebox.o uefstate.o listbox.o fileselector_saveas.o dma.o
 
 
 .cc.o:
