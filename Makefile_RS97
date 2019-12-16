@@ -1,4 +1,4 @@
-TOOLCHAIN = /opt/retrogame-toolchain/usr
+TOOLCHAIN = /opt/retrofw-toolchain/usr
 SDL_CONFIG = $(TOOLCHAIN)/mipsel-buildroot-linux-uclibc/sysroot/usr/bin/sdl-config
 
 #arm-open2x-linux-

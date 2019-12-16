@@ -102,7 +102,7 @@ void Video_SetVHoldDown(void);
 void rgb_blit();
 void update_rgb_lookup(SDL_Surface *source_surface);
 
-#define USE_DMA
+//#define USE_DMA
 
 #ifdef USE_DMA
 extern volatile uint16_t *dma_ptr;

@@ -318,48 +318,11 @@ void VideoAddLEDs(void);
 //--	}
 //--}
 //<+
-#define MAX_PALETTE_COLOURS 256
-unsigned short rgb_lookup[MAX_PALETTE_COLOURS] = {0};
-
-void update_rgb_lookup(SDL_Surface *source_surface)
-	{
-	SDL_Color *colours = source_surface->format->palette->colors;
-
-	for(int index = 0; index < MAX_PALETTE_COLOURS; index++)
-		rgb_lookup[index] = SDL_MapRGB(rgb_surface->format, colours[index].r, colours[index].g, colours[index].b);
-
-	}
 
 void rgb_blit()
 	{
-	unsigned char *src_pixel = (unsigned char *)frame_buffer_p->pixels;
-
-#ifndef USE_DMA
-	LOCK(rgb_surface);
-	unsigned short *dest_pixel = (unsigned short *)rgb_surface->pixels;//, *prev_line = dest_pixel;
-#else
-	unsigned short *dest_pixel = (unsigned short *)dma_ptr;
-#endif
-	unsigned short *dest_pixel2 = dest_pixel + 320;
-		
-	for(int yc = 0; yc < 240; yc++)
-		{
-		for(int xc = 0; xc < 320; xc++)
-			{
-			*dest_pixel2 = *dest_pixel = rgb_lookup[*src_pixel];
-			src_pixel++;
-			dest_pixel++;
-			dest_pixel2++;
-			}
-
-		dest_pixel = dest_pixel + 320;
-		dest_pixel2 = dest_pixel2 + 320;
-		}
-
-#ifndef USE_DMA
-	UNLOCK(rgb_surface);
-	SDL_UpdateRect (rgb_surface, 0, 0, 0, 0);
-#endif
+	SDL_BlitSurface(frame_buffer_p, NULL, rgb_surface, NULL);
+	SDL_UpdateRect(rgb_surface, 0, 0, 0, 0);
 	}
 
 // A 'Chunky Mode' get pixel routine:

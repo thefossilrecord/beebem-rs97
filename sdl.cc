@@ -452,7 +452,7 @@ int InitializeSDL(int,char*[])
         flags = SDL_HWSURFACE | SDL_HWPALETTE;
 #ifndef GP2X
         //if ( (frame_buffer_p=SDL_SetVideoMode(640, 480, 8, flags)) == NULL ) {
-        if ( (rgb_surface=SDL_SetVideoMode(320, 480, 16, flags)) == NULL ) {
+        if ( (rgb_surface=SDL_SetVideoMode(320, 240, 16, flags)) == NULL ) {
 #else
         if ( (frame_buffer_p=SDL_SetVideoMode(320, 240, 8, flags)) == NULL ) {
 #endif

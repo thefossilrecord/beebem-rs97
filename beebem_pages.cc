@@ -221,7 +221,6 @@ typedef struct {
 static BeebEm_Pages gui, *gui_p = &gui;
 
 static SDL_Color default_colors[256];
-static SDL_Color frame_buffer_colors[256];
 
 static void BackupPalette(SDL_Surface *surface_p, SDL_Color *palette_p)
 {
@@ -402,7 +401,6 @@ EG_BOOL BeebEmPages_Create(SDL_Surface *frame_buffer_p)
 	SDL_Surface *tmp2_p = SDL_LoadBMP(config.files.virtual_keyboard_loc);
 	if (tmp2_p != NULL) {
 	SDL_SetPalette(frame_buffer_p, SDL_LOGPAL|SDL_PHYSPAL, tmp2_p->format->palette->colors, 0, tmp2_p->format->palette->ncolors);
-	update_rgb_lookup(frame_buffer_p);
 	SDL_FreeSurface(tmp2_p);
 	}
 
